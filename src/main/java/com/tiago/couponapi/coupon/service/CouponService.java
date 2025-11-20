@@ -7,6 +7,8 @@ import com.tiago.couponapi.coupon.model.Coupon;
 import com.tiago.couponapi.coupon.repository.CouponRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class CouponService {
 
@@ -18,7 +20,7 @@ public class CouponService {
         this.couponMapper = couponMapper;
     }
 
-    public CouponResponse create(CouponRequest couponRequest) {
+    public CouponResponse createCoupon(CouponRequest couponRequest) {
         String cleanCode = couponRequest.getCode().replaceAll("[^a-zA-Z0-9]", "");
 
         if (cleanCode.length() != 6) {
@@ -33,5 +35,11 @@ public class CouponService {
 
         Coupon savedCoupon = couponRepository.save(coupon);
         return couponMapper.toDto(savedCoupon);
+    }
+
+    public CouponResponse getCouponById(UUID couponId) {
+        Coupon coupon = couponRepository.findById(couponId)
+                .orElseThrow(() -> new IllegalArgumentException("Cupom não encontrado"));
+        return couponMapper.toDto(coupon);
     }
 }
