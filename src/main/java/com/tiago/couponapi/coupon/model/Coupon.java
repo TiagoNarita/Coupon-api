@@ -111,4 +111,8 @@ public class Coupon {
     public void setStatus(CouponStatus status) {
         this.status = status;
     }
+
+    public boolean isDeleted(){
+        return CouponStatus.DELETED.equals(this.status);
+    }
 }

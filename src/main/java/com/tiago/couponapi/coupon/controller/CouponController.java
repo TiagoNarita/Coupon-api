@@ -30,4 +30,10 @@ public class CouponController {
     public ResponseEntity<CouponResponse> getCouponById(@PathVariable UUID couponId){
         return ResponseEntity.ok(couponService.getCouponById(couponId));
     }
+
+    @DeleteMapping("/{couponId}")
+    public ResponseEntity<Void> deleteCouponById(@PathVariable UUID couponId){
+        couponService.deleteCouponById(couponId);
+        return ResponseEntity.noContent().build();
+    }
 }
